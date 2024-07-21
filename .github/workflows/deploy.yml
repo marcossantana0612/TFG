@@ -25,7 +25,7 @@ jobs:
 
     - name: Convert notebook to HTML
       run: |
-        jupyter nbconvert --to html Untitled.ipynb
+        jupyter nbconvert --to html index.ipynb
         ls -l  # Lista los archivos generados para verificar que Untitled.html existe
 
     - name: Deploy to GitHub Pages
