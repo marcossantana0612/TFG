@@ -1,2 +1,0 @@
-# TFG
-[Prueba](Untitled.ipynb)
