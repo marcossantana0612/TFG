@@ -26,9 +26,11 @@ jobs:
     - name: Convert notebook to HTML
       run: |
         jupyter nbconvert --to html Untitled.ipynb
+        ls -l  # Lista los archivos generados para verificar que Untitled.html existe
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        publish_dir: ./  # Asegúrate de que este directorio contiene Untitled.html
         publish_branch: gh-pages
