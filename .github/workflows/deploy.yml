@@ -1,35 +1,45 @@
-name: Deploy Jupyter Notebook to GitHub Pages
+name: Execute, Render, and Publish Jupyter Notebook
 
 on:
   push:
     branches:
-      - main  # O la rama que estés usando para tu repositorio
+      - main  # Puedes especificar la rama en la que deseas que se ejecute
+  workflow_dispatch:  # Permite ejecutar el flujo de trabajo manualmente desde la pestaña "Actions"
 
 jobs:
-  build-and-deploy:
+  run-and-publish-notebook:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.8'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'  # Especifica la versión de Python que necesitas
 
-      - name: Install dependencies
-        run: |
-          pip install jupyter nbconvert
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install notebook nbconvert
 
-      - name: Convert notebook to HTML
-        run: |
-          jupyter nbconvert --to html Untitled.ipynb
+    - name: Execute Jupyter Notebook
+      run: |
+        jupyter nbconvert --to html --execute Untitled.ipynb
 
-      - name: Setup GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          publish_branch: gh-pages
+    - name: Configure Git for GitHub Actions
+      run: |
+        git config --global user.name 'msantana'
+        git config --global user.email 'marcos.santana@edu.uah.es'
 
+    - name: Checkout gh-pages branch
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        
+    - name: Commit and Push HTML to gh-pages
+      run: |
+        git add docs/index.html
+        git commit -m "Update notebook HTML"
+        git push origin gh-pages
