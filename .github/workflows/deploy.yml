@@ -31,15 +31,20 @@ jobs:
     - name: Configure Git for GitHub Actions
       run: |
         git config --global user.name 'msantana'
-        git config --global user.email 'marcos.santana@edu.uah.es'
+        git config --global user.email 'msantana@edu.uah.es'
 
     - name: Checkout gh-pages branch
       uses: actions/checkout@v2
       with:
         ref: gh-pages
-        
+
+    - name: Copy HTML to gh-pages branch
+      run: |
+        mkdir -p docs
+        cp Untitled.html docs/index.html
+
     - name: Commit and Push HTML to gh-pages
       run: |
-        git add Untitled.html
+        git add docs/index.html
         git commit -m "Update notebook HTML"
         git push origin gh-pages
