@@ -40,6 +40,6 @@ jobs:
         
     - name: Commit and Push HTML to gh-pages
       run: |
-        git add docs/index.html
+        git add Untitled.html
         git commit -m "Update notebook HTML"
         git push origin gh-pages
