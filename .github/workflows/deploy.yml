@@ -47,3 +47,4 @@ jobs:
         github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         publish_dir: ./html_outputs  # Asegúrate de que este directorio contiene Untitled.html
         publish_branch: gh-pages
+        keep_files: true  # Mantener los archivos existentes en la rama gh-pages
