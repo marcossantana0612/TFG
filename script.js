@@ -1,4 +1,4 @@
 function loadNotebook(notebook) {
     const viewer = document.getElementById('notebookViewer');
-    viewer.src = 'notebooks/' + notebook;
+    viewer.src = 'html_outputs/notebooks/' + notebook;
 }
